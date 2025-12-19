@@ -177,4 +177,13 @@ export const PRESETS: Record<string, SoundConfig> = {
     decayDuration: 0.05,
     configGainPeak: 0.05,
   },
+  phone: {
+    type: "square",
+    frequencyStart: 1000,
+    frequencyEnd: 2000,
+    attackDuration: 0.002,
+    decayDuration: 0.03,
+    configGainPeak: 0.05,
+    gainEnd: 0,
+  },
 };
