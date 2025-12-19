@@ -1,15 +1,15 @@
 export enum SectionType {
-  INTRO = 'INTRO',
-  PROJECT = 'PROJECT',
-  EXPERIENCE = 'EXPERIENCE',
-  ABOUT = 'ABOUT',
-  CONTACT = 'CONTACT'
+  INTRO = "INTRO",
+  PROJECT = "PROJECT",
+  EXPERIENCE = "EXPERIENCE",
+  ABOUT = "ABOUT",
+  CONTACT = "CONTACT",
 }
 
 export enum ViewMode {
-  ROAD = 'ROAD',
-  OVERVIEW = 'OVERVIEW',
-  LIST = 'LIST'
+  ROAD = "ROAD",
+  OVERVIEW = "OVERVIEW",
+  LIST = "LIST",
 }
 
 export interface PortfolioItem {
@@ -26,6 +26,7 @@ export interface PortfolioItem {
   link?: string;
   github?: string;
   stats?: { label: string; value: string }[];
+  bullets?: string[];
 }
 
 export interface AppState {

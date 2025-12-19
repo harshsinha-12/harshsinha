@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { PortfolioItem, SectionType } from "../types";
 import { ArrowRight, Box, User, Briefcase, Mail } from "lucide-react";
 
