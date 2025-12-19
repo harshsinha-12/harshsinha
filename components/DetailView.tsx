@@ -157,19 +157,54 @@ const DetailView: React.FC<DetailViewProps> = ({ item, onClose }) => {
           {/* Right: Abstract Visuals */}
           <div className="w-full md:w-1/3 flex flex-col gap-4">
             {/* Decorative abstract cards mimicking portfolio images */}
-            <div className="w-full aspect-[4/5] bg-slate-200 rounded-2xl overflow-hidden relative shadow-inner">
-              <div
-                className={`absolute inset-0 opacity-30 ${item.colorTheme.replace(
-                  "bg-",
-                  "bg-gradient-to-tr from-transparent to-"
-                )}`}
-              />
-              <div className="absolute bottom-8 left-8">
-                <h4 className="text-6xl font-bold text-white opacity-50 mix-blend-overlay">
-                  {item.title.substring(0, 2)}
-                </h4>
+            {item.ogImage ? (
+              <a
+                href={item.link || "#"}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full aspect-[4/5] bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 group flex flex-col transition-transform hover:-translate-y-1 duration-300"
+              >
+                <div className="relative flex-1 bg-slate-50 overflow-hidden">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center opacity-20 blur-xl scale-110"
+                    style={{ backgroundImage: `url(${item.ogImage})` }}
+                  />
+                  <img
+                    src={item.ogImage}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-contain p-4 z-10 transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-6 bg-white border-t border-slate-100 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-bold text-slate-900 text-lg">
+                      {item.title}
+                    </h4>
+                    <ExternalLink
+                      size={20}
+                      className="text-slate-400 group-hover:text-slate-900 transition-colors"
+                    />
+                  </div>
+                  <p className="text-sm text-slate-500 line-clamp-2 leading-relaxed">
+                    {item.mbaiImageDescription || item.subtitle}
+                  </p>
+                </div>
+              </a>
+            ) : (
+              <div className="w-full aspect-[4/5] bg-slate-200 rounded-2xl overflow-hidden relative shadow-inner">
+                <div
+                  className={`absolute inset-0 opacity-30 ${item.colorTheme.replace(
+                    "bg-",
+                    "bg-gradient-to-tr from-transparent to-"
+                  )}`}
+                />
+                <div className="absolute bottom-8 left-8">
+                  <h4 className="text-6xl font-bold text-white opacity-50 mix-blend-overlay">
+                    {item.title.substring(0, 2)}
+                  </h4>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

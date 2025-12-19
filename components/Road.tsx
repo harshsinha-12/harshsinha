@@ -71,14 +71,28 @@ const Road: React.FC<RoadProps> = ({ items, onSelect, setScrollProgress }) => {
 
         {items
           .filter((i) => i.type !== SectionType.INTRO)
-          .map((item, index) => (
-            <Flag
-              key={item.id}
-              item={item}
-              index={index}
-              onClick={() => onSelect(item)}
-            />
-          ))}
+          .map((item) => {
+            if (item.type === SectionType.SECTION_HEADER) {
+              return <SectionHeader key={item.id} item={item} />;
+            }
+            // Calculate index only among non-header items for the "01", "02" numbering
+            const cardIndex = items
+              .filter(
+                (i) =>
+                  i.type !== SectionType.INTRO &&
+                  i.type !== SectionType.SECTION_HEADER
+              )
+              .findIndex((i) => i.id === item.id);
+
+            return (
+              <Flag
+                key={item.id}
+                item={item}
+                index={cardIndex}
+                onClick={() => onSelect(item)}
+              />
+            );
+          })}
 
         {/* End Spacer */}
         <div className="w-[20vw] inline-block h-full"></div>
@@ -160,6 +174,32 @@ const Flag: React.FC<FlagProps> = ({ item, index, onClick }) => {
           </motion.button>
         </div>
       </div>
+    </div>
+  );
+};
+
+const SectionHeader: React.FC<{ item: PortfolioItem }> = ({ item }) => {
+  return (
+    <div
+      className={`inline-flex h-full items-center justify-center min-w-[80vw] relative overflow-hidden ${
+        item.colorTheme || ""
+      }`}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="max-w-[90%]"
+      >
+        <h2
+          className={`text-[10vw] font-black uppercase tracking-widest select-none whitespace-pre leading-none ${
+            item.accentClass || "text-slate-900/10"
+          }`}
+          style={{ opacity: 0.5 }}
+        >
+          {item.title}
+        </h2>
+      </motion.div>
     </div>
   );
 };

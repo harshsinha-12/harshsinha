@@ -14,6 +14,39 @@ const App: React.FC = () => {
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.ROAD);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Background Music State
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+
+  React.useEffect(() => {
+    // Attempt auto-play on mount
+    const play = async () => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.4;
+        try {
+          await audioRef.current.play();
+          setIsMusicPlaying(true);
+        } catch {
+          console.log("Autoplay blocked");
+        }
+      }
+    };
+    play();
+  }, []);
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isMusicPlaying) {
+        audioRef.current.pause();
+        setIsMusicPlaying(false);
+      } else {
+        audioRef.current.play();
+        setIsMusicPlaying(true);
+      }
+    }
+  };
+
   // Dynamic background color derived from active item or scroll progress
   const blobColor = React.useMemo(() => {
     if (activeItem) {
@@ -46,7 +79,12 @@ const App: React.FC = () => {
         activeItem={activeItem}
         viewMode={viewMode}
         setViewMode={setViewMode}
+        isMusicPlaying={isMusicPlaying}
+        toggleMusic={toggleMusic}
       />
+
+      {/* Persistent Audio Element */}
+      <audio ref={audioRef} src="/background-music.mp3" loop />
 
       {/* Content Views */}
       <AnimatePresence mode="wait">

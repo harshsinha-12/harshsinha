@@ -4,6 +4,7 @@ export enum SectionType {
   EXPERIENCE = "EXPERIENCE",
   ABOUT = "ABOUT",
   CONTACT = "CONTACT",
+  SECTION_HEADER = "SECTION_HEADER",
 }
 
 export enum ViewMode {
@@ -22,9 +23,12 @@ export interface PortfolioItem {
   techStack?: string[];
   description?: string; // Long description for detail view
   shortDescription?: string; // For the flag
+  mbaiImageDescription?: string; // For the flag
   colorTheme: string; // Tailwind class for background gradient
+  accentClass?: string; // Text color for the header
   link?: string;
   github?: string;
+  ogImage?: string;
   stats?: { label: string; value: string }[];
   bullets?: string[];
 }

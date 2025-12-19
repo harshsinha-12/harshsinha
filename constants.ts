@@ -13,6 +13,16 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       "I'm a final year undergraduate specializing in Computer Science and Data Analytics. Currently exploring WebGL, creative dev, backend systems, and high fidelity UX.",
   },
   {
+    id: "header-experience",
+    type: SectionType.SECTION_HEADER,
+    title: "EXPERIENCE",
+    subtitle: "",
+    colorTheme: "",
+    accentClass: "text-blue-500",
+    shortDescription: "",
+    description: "",
+  },
+  {
     id: "exp-multibagg",
     type: SectionType.EXPERIENCE,
     title: "Multibagg AI",
@@ -23,6 +33,8 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     colorTheme: "bg-blue-50",
     shortDescription:
       "Analyzed 60+ IPOs and built automated financial insight pipelines.",
+    mbaiImageDescription:
+      "Multibagg AI is an AI powered stock research and analysis platform",
     description:
       "Engineered an AI pipeline converting RHP PDFs to Zod schemas via GPT-4o/Gemini using Azure Queues. Reduced manual analysis from hours to minutes. Built an AI Screener Agent translating natural language to SQL, achieving 90% faster response times.",
     stats: [
@@ -43,6 +55,18 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       "Built an automated blog generation system using Gemini Doc Understanding and MDX + Next.js, driving a 20x increase in Google Search Console impressions.",
       "Contributed to the development of the agentic chatbot Ask Iris, including a multi-agent architecture with a RAG agent indexing 100k+ Markdown documents, DB and web access, and end-to-end evals.",
     ],
+    link: "https://www.multibagg.ai",
+    ogImage: "https://www.multibagg.ai/opengraph-image.png",
+  },
+  {
+    id: "header-projects",
+    type: SectionType.SECTION_HEADER,
+    title: "PROJECTS",
+    subtitle: "",
+    colorTheme: "",
+    accentClass: "text-purple-500",
+    shortDescription: "",
+    description: "",
   },
   {
     id: "proj-tinycats",
@@ -83,6 +107,16 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description:
       "Created a Streamlit app that fetches live stock data, visualizes candlestick charts, and uses Gemini AI to interpret patterns. Automated end-to-end pipeline enabling instant technical insights.",
     github: "https://github.com/harshsinha-12",
+  },
+  {
+    id: "header-about",
+    type: SectionType.SECTION_HEADER,
+    title: "ABOUT",
+    subtitle: "",
+    colorTheme: "",
+    accentClass: "text-green-500",
+    shortDescription: "",
+    description: "",
   },
   {
     id: "about",
