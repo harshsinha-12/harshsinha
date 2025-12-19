@@ -62,7 +62,7 @@ const Road: React.FC<RoadProps> = ({ items, onSelect, setScrollProgress }) => {
             </p>
             <div className="flex items-center mt-8 text-slate-400 animate-pulse">
               <span className="mr-4 text-sm tracking-widest uppercase">
-                Scroll to explore
+                Scroll horizontally to explore
               </span>
               <ArrowRight size={20} />
             </div>

@@ -102,7 +102,7 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
 
       {/* Bottom Left Instructions - Only show on ROAD view */}
       {viewMode === ViewMode.ROAD && (
-        <div className="absolute bottom-8 left-8 text-xs text-slate-400 max-w-[200px] leading-relaxed opacity-60">
+        <div className="hidden md:block absolute bottom-8 left-8 text-xs text-slate-400 max-w-[200px] leading-relaxed opacity-60">
           <div className="flex gap-1 mb-2">
             <div className="w-2 h-2 rounded-full bg-slate-300"></div>
             <div className="w-2 h-2 rounded-full border border-slate-300"></div>

@@ -10,7 +10,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
       "Building at the intersection of Finance, AI, and Engineering.",
     colorTheme: "bg-slate-50",
     description:
-      "I'm a final year undergraduate specializing in Computer Science and Data Analytics. Currently exploring WebGL, creative dev, backend systems, and high fidelity UX.",
+      "CS & Data Science undergrad at IIT Patna. Builder at the intersection of AI, finance, and product. Experienced with LLM pipelines, backend systems (TypeScript, Prisma, Postgres), and data-driven UX. Currently exploring GenAI systems, Web3, Quant Finance, creative dev, and high-fidelity interfaces.",
   },
   {
     id: "header-experience",
@@ -124,7 +124,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "About Me",
     subtitle: "The person behind the code",
     colorTheme: "bg-purple-50",
-    shortDescription: "Data Geek. Creative Developer. Problem Solver.",
+    shortDescription: "Data Geek. Backend and AI Engineer. Problem Solver.",
     description:
       "I love programming 3D and 2D websites with good design and beautiful animations. National Finalist at India Fintech Forum 2024. 'If my code doesn’t crash once while building it, was it even learning?'",
   },
@@ -136,7 +136,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     colorTheme: "bg-slate-100",
     shortDescription: "sinha.harshsep@gmail.com",
     description:
-      "Open to opportunities in Software Engineering, AI/ML, and Creative Development.",
+      "Open to Software Engineering, AI/ML, and product-focused development opportunities.",
     link: "mailto:sinha.harshsep@gmail.com",
   },
 ];

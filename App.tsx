@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   // Background Music State
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
 
   React.useEffect(() => {
     // Attempt auto-play on mount
@@ -26,9 +26,12 @@ const App: React.FC = () => {
         audioRef.current.volume = 0.4;
         try {
           await audioRef.current.play();
+          // State is already true, but confirm it stays true
           setIsMusicPlaying(true);
         } catch {
           console.log("Autoplay blocked");
+          // Revert state if blocked
+          setIsMusicPlaying(false);
         }
       }
     };
