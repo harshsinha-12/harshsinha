@@ -18,16 +18,20 @@ const DetailView: React.FC<DetailViewProps> = ({ item, onClose }) => {
       className={`fixed inset-0 z-40 flex overflow-hidden bg-white/90 backdrop-blur-xl ${item.colorTheme}`}
     >
       <div className="w-full h-full overflow-y-auto no-scrollbar relative">
-        {/* Back Button */}
-        <button
-          onClick={onClose}
-          className="fixed top-8 left-8 z-50 flex items-center space-x-2 text-slate-800 hover:opacity-60 transition-opacity mix-blend-multiply"
-        >
-          <div className="bg-white p-3 rounded-full shadow-lg border border-slate-100">
-            <ArrowLeft size={24} />
-          </div>
-          <span className="font-medium tracking-wide">BACK TO ROAD</span>
-        </button>
+        {/* Sticky Header */}
+        <div className="sticky top-0 z-50 w-full flex items-center px-6 py-4 bg-white/90 backdrop-blur-md border-b border-slate-100">
+          <button
+            onClick={onClose}
+            className="flex items-center space-x-3 text-slate-800 hover:opacity-60 transition-opacity group"
+          >
+            <div className="p-2 rounded-full bg-slate-100 group-hover:bg-slate-200 transition-colors">
+              <ArrowLeft size={20} />
+            </div>
+            <span className="font-medium tracking-wide text-sm">
+              BACK TO ROAD
+            </span>
+          </button>
+        </div>
 
         <div className="container mx-auto px-6 py-32 md:py-40 min-h-screen flex flex-col md:flex-row gap-16">
           {/* Left: Content */}

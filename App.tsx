@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { PORTFOLIO_ITEMS } from "./constants";
 import { PortfolioItem, ViewMode } from "./types";
@@ -9,9 +9,11 @@ import ListView from "./components/ListView";
 import DetailView from "./components/DetailView";
 import UIOverlay from "./components/UIOverlay";
 import CustomCursor from "./components/CustomCursor";
+import { useAudio } from "./hooks/useAudio";
 import StartScreen from "./components/StartScreen";
 
 const App: React.FC = () => {
+  const { playClick } = useAudio();
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.ROAD);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -27,6 +29,15 @@ const App: React.FC = () => {
       audioRef.current.play().catch((e) => console.log("Playback failed:", e));
     }
   }, [hasStarted]);
+
+  useEffect(() => {
+    const handleClick = () => {
+      playClick();
+    };
+
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, [playClick]);
 
   const handleStart = () => {
     setHasStarted(true);
@@ -97,7 +108,8 @@ const App: React.FC = () => {
       )}
 
       {/* Persistent Audio Element */}
-      <audio ref={audioRef} src="/background-music.mp3" loop />
+      {/* <audio ref={audioRef} src="/background-music.mp3" loop /> */}
+      <audio ref={audioRef} src="/Interstellar Main Theme - Hans Zimmer (1).mp3" loop />
 
       {/* Content Views */}
       <AnimatePresence mode="wait">
