@@ -124,7 +124,7 @@ const Flag: React.FC<FlagProps> = ({ item, index, onClick }) => {
 
         <div className="relative">
           {/* Decorative Number */}
-          <span className="absolute -top-40 -left-20 text-[10rem] font-bold text-slate-900/5 select-none pointer-events-none z-0 leading-none">
+          <span className="absolute -top-28 left-4 md:-top-40 md:-left-20 text-[6rem] md:text-[10rem] font-bold text-slate-900/5 select-none pointer-events-none z-0 leading-none">
             {(index + 1).toString().padStart(2, "0")}
           </span>
 
