@@ -66,7 +66,7 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
       </div>
 
       {/* Bottom Right Socials */}
-      <div className="absolute bottom-8 right-8 pointer-events-auto flex items-center gap-4 text-slate-400">
+      <div className="absolute bottom-8 right-8 pointer-events-auto flex items-center gap-4 text-slate-600">
         {/* Background Music Visualizer */}
         <BackgroundMusic isPlaying={isMusicPlaying} onToggle={toggleMusic} />
         <div className="w-px h-6 bg-slate-300 mx-2" /> {/* Divider */}
@@ -108,7 +108,7 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
             <div className="w-2 h-2 rounded-full border border-slate-300"></div>
             <div className="w-2 h-2 rounded-full border border-slate-300"></div>
           </div>
-          Scroll horizontally to navigate the path. Click markers for details.
+          Scroll vertically to navigate the path. Click markers for details.
         </div>
       )}
     </div>

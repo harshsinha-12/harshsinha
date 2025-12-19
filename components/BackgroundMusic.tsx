@@ -20,7 +20,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
         {[1, 2, 3, 4, 5].map((bar, index) => (
           <div
             key={bar}
-            className={`w-[3px] bg-slate-400 rounded-full transition-all duration-300 group-hover:bg-slate-800 ${
+            className={`w-[3px] bg-slate-600 rounded-full transition-all duration-300 group-hover:bg-slate-800 ${
               isPlaying ? "animate-music-bar" : "h-[3px]"
             }`}
             style={{

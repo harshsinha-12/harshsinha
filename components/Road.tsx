@@ -11,10 +11,12 @@ interface RoadProps {
 
 const Road: React.FC<RoadProps> = ({ items, onSelect, setScrollProgress }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollXProgress } = useScroll({ container: containerRef });
+  // Track vertical scroll progress
+  const { scrollYProgress } = useScroll({ container: containerRef });
 
   // Smooth out the scroll progress reporting
-  const smoothProgress = useSpring(scrollXProgress, {
+  // Smooth out the scroll progress reporting
+  const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
   });
@@ -23,31 +25,22 @@ const Road: React.FC<RoadProps> = ({ items, onSelect, setScrollProgress }) => {
     return smoothProgress.onChange((v) => setScrollProgress(v));
   }, [smoothProgress, setScrollProgress]);
 
-  // Handle horizontal scroll via vertical wheel for desktop ergonomics
+  // Reset scroll position on mount
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY === 0) return;
-      // If we are scrolling vertically, translate to horizontal
-      container.scrollLeft += e.deltaY;
-      // prevent default browser back/forward history actions if touch pad
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: true }); // passive true for performance
-    return () => container.removeEventListener("wheel", handleWheel);
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar scroll-smooth"
+      className="absolute inset-0 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth"
       style={{ cursor: "none" }} // Hide default cursor for custom one
     >
-      <div className="flex items-center h-full px-[20vw] gap-[40vw]">
+      <div className="flex flex-col items-center w-full py-[20vh] gap-[30vh]">
         {/* Intro Text - Not a clickable card, just visual anchor */}
-        <div className="inline-block align-middle h-screen flex flex-col justify-center min-w-[50vw] pr-20">
+        <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -60,11 +53,11 @@ const Road: React.FC<RoadProps> = ({ items, onSelect, setScrollProgress }) => {
             <p className="text-xl md:text-2xl text-slate-500 font-light max-w-xl leading-relaxed">
               Building at the intersection of Finance, AI, and Engineering.
             </p>
-            <div className="flex items-center mt-8 text-slate-400 animate-pulse">
+            <div className="flex items-center justify-center mt-8 text-slate-400 animate-pulse">
               <span className="mr-4 text-sm tracking-widest uppercase">
-                Scroll horizontally to explore
+                Scroll vertically to explore
               </span>
-              <ArrowRight size={20} />
+              <ArrowRight size={20} className="rotate-90" />
             </div>
           </motion.div>
         </div>
@@ -95,7 +88,7 @@ const Road: React.FC<RoadProps> = ({ items, onSelect, setScrollProgress }) => {
           })}
 
         {/* End Spacer */}
-        <div className="w-[20vw] inline-block h-full"></div>
+        <div className="h-[20vh] w-full"></div>
       </div>
     </div>
   );
@@ -124,15 +117,15 @@ const Flag: React.FC<FlagProps> = ({ item, index, onClick }) => {
   };
 
   return (
-    <div className="inline-block h-full align-middle relative group perspective-1000">
-      <div className="flex flex-col h-full justify-center items-start relative">
-        {/* Vertical Line Anchor */}
-        <div className="absolute left-6 top-1/2 w-[1px] h-[30vh] bg-slate-300 origin-top transform -translate-y-1/2 scale-y-0 group-hover:scale-y-100 transition-transform duration-700 delay-100 ease-out" />
+    <div className="block relative group perspective-1000 py-10">
+      <div className="flex flex-col justify-center items-center relative">
+        {/* Vertical Line Anchor - Top */}
+        <div className="absolute top-0 left-1/2 w-[1px] h-[15vh] bg-slate-300 origin-top transform -translate-x-1/2 scale-y-0 group-hover:scale-y-100 transition-transform duration-700 delay-100 ease-out -translate-y-full" />
 
         <div className="relative">
           {/* Decorative Number */}
-          <span className="absolute -top-40 -left-6 text-[10rem] font-bold text-slate-900/5 select-none pointer-events-none z-0 leading-none">
-            0{index + 1}
+          <span className="absolute -top-40 -left-20 text-[10rem] font-bold text-slate-900/5 select-none pointer-events-none z-0 leading-none">
+            {(index + 1).toString().padStart(2, "0")}
           </span>
 
           {/* The Card */}
@@ -181,7 +174,7 @@ const Flag: React.FC<FlagProps> = ({ item, index, onClick }) => {
 const SectionHeader: React.FC<{ item: PortfolioItem }> = ({ item }) => {
   return (
     <div
-      className={`inline-flex h-full items-center justify-center min-w-[80vw] relative overflow-hidden ${
+      className={`flex w-full min-h-[50vh] items-center justify-center relative overflow-hidden py-20 ${
         item.colorTheme || ""
       }`}
     >

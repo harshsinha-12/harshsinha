@@ -28,14 +28,40 @@ const AnimatedBlob = ({
 
     // Parallax logic: Move group based on scrollProgress
     if (groupRef.current) {
-      // Map scrollProgress (0 to 1) to X position (e.g., 2 to -4)
-      // Moving opposite to scroll direction creates depth
-      const targetX = 2 - scrollProgress * 6;
+      // Map scrollProgress (0 to 1) to position
+      // For vertical scroll:
+      // Move Y up/down (opposite to scroll)
+      // Move Z slightly for depth as we go down
+
+      // Let's try: Scroll Down -> Camera goes down -> Objects go UP relative to camera
+      // Default camera is at [0,0,8].
+      // Let's just move the blob on Y axis.
+      // initial Y = 0.
+      // Start from bottom right (y: -4, x: 4) to avoid intro text
+      // Move up as we scroll
+      const targetYPos = -4 + scrollProgress * 10;
+
+      // targetX could shift slightly for variety
+      const targetX = 4 - scrollProgress * 3;
 
       // Smooth lerp
+      groupRef.current.position.y = THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        targetYPos,
+        0.05
+      );
+
       groupRef.current.position.x = THREE.MathUtils.lerp(
         groupRef.current.position.x,
         targetX,
+        0.05
+      );
+
+      // Add some Z depth movement
+      const targetZ = -2 - scrollProgress * 5;
+      groupRef.current.position.z = THREE.MathUtils.lerp(
+        groupRef.current.position.z,
+        targetZ,
         0.05
       );
     }
