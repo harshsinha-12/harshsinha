@@ -20,7 +20,22 @@ const App: React.FC = () => {
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
 
   React.useEffect(() => {
-    // Attempt auto-play on mount
+    // Define interaction handler for fallback
+    const enableAudio = async () => {
+      if (audioRef.current && audioRef.current.paused) {
+        try {
+          await audioRef.current.play();
+          setIsMusicPlaying(true);
+          // Remove listeners once successful
+          document.removeEventListener("click", enableAudio);
+          document.removeEventListener("touchstart", enableAudio);
+          document.removeEventListener("keydown", enableAudio);
+        } catch (e) {
+          console.error("Interaction play failed", e);
+        }
+      }
+    };
+
     const play = async () => {
       if (audioRef.current) {
         audioRef.current.volume = 0.4;
@@ -32,10 +47,23 @@ const App: React.FC = () => {
           console.log("Autoplay blocked");
           // Revert state if blocked
           setIsMusicPlaying(false);
+
+          // Add listeners for next interaction
+          document.addEventListener("click", enableAudio);
+          document.addEventListener("touchstart", enableAudio);
+          document.addEventListener("keydown", enableAudio);
         }
       }
     };
+
     play();
+
+    // Proper cleanup on unmount
+    return () => {
+      document.removeEventListener("click", enableAudio);
+      document.removeEventListener("touchstart", enableAudio);
+      document.removeEventListener("keydown", enableAudio);
+    };
   }, []);
 
   const toggleMusic = () => {
