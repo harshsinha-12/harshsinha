@@ -9,6 +9,7 @@ import ListView from "./components/ListView";
 import DetailView from "./components/DetailView";
 import UIOverlay from "./components/UIOverlay";
 import CustomCursor from "./components/CustomCursor";
+import StartScreen from "./components/StartScreen";
 
 const App: React.FC = () => {
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
@@ -18,53 +19,29 @@ const App: React.FC = () => {
   // Background Music State
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
 
   React.useEffect(() => {
-    // Define interaction handler for fallback
-    const enableAudio = async () => {
-      if (audioRef.current && audioRef.current.paused) {
-        try {
-          await audioRef.current.play();
+    // Only attempt playback if already started (e.g. persistent state) or rely on StartScreen
+    if (hasStarted && audioRef.current) {
+      audioRef.current.play().catch((e) => console.log("Playback failed:", e));
+    }
+  }, [hasStarted]);
+
+  const handleStart = () => {
+    setHasStarted(true);
+    if (audioRef.current) {
+      audioRef.current.volume = 0.4;
+      audioRef.current
+        .play()
+        .then(() => {
           setIsMusicPlaying(true);
-          // Remove listeners once successful
-          document.removeEventListener("click", enableAudio);
-          document.removeEventListener("touchstart", enableAudio);
-          document.removeEventListener("keydown", enableAudio);
-        } catch (e) {
-          console.error("Interaction play failed", e);
-        }
-      }
-    };
-
-    const play = async () => {
-      if (audioRef.current) {
-        audioRef.current.volume = 0.4;
-        try {
-          await audioRef.current.play();
-          // State is already true, but confirm it stays true
-          setIsMusicPlaying(true);
-        } catch {
-          console.log("Autoplay blocked");
-          // Revert state if blocked
-          setIsMusicPlaying(false);
-
-          // Add listeners for next interaction
-          document.addEventListener("click", enableAudio);
-          document.addEventListener("touchstart", enableAudio);
-          document.addEventListener("keydown", enableAudio);
-        }
-      }
-    };
-
-    play();
-
-    // Proper cleanup on unmount
-    return () => {
-      document.removeEventListener("click", enableAudio);
-      document.removeEventListener("touchstart", enableAudio);
-      document.removeEventListener("keydown", enableAudio);
-    };
-  }, []);
+        })
+        .catch((err) => {
+          console.error("Audio play failed on start:", err);
+        });
+    }
+  };
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -102,17 +79,22 @@ const App: React.FC = () => {
       <div className="grain-overlay" />
       <CustomCursor />
 
+      {/* Start Screen Overlay */}
+      {!hasStarted && <StartScreen onStart={handleStart} />}
+
       {/* Background 3D Scene */}
       <Scene color={blobColor} scrollProgress={scrollProgress} />
 
-      {/* Main UI Overlay */}
-      <UIOverlay
-        activeItem={activeItem}
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        isMusicPlaying={isMusicPlaying}
-        toggleMusic={toggleMusic}
-      />
+      {/* Main UI Overlay - visible only after start */}
+      {hasStarted && (
+        <UIOverlay
+          activeItem={activeItem}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          isMusicPlaying={isMusicPlaying}
+          toggleMusic={toggleMusic}
+        />
+      )}
 
       {/* Persistent Audio Element */}
       <audio ref={audioRef} src="/background-music.mp3" loop />
