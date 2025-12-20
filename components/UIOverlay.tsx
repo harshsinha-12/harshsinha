@@ -28,12 +28,13 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
 
   return (
     <div className="fixed inset-0 pointer-events-none z-30">
-      {/* Top Left Logo */}
-      <div
-        className="absolute top-8 left-8 pointer-events-auto cursor-pointer"
-        onClick={() => setViewMode(ViewMode.ROAD)}
-      >
-        <div className="flex flex-col">
+      {/* Sticky Header */}
+      <div className="fixed top-0 left-0 right-0 z-50 pointer-events-auto bg-white/80 backdrop-blur-md border-b border-slate-200/50 px-8 py-4 flex flex-col md:flex-row items-center justify-between transition-all">
+        {/* Logo */}
+        <div
+          className="cursor-pointer flex flex-col md:items-start items-center mb-4 md:mb-0"
+          onClick={() => setViewMode(ViewMode.ROAD)}
+        >
           <span className="font-bold text-xl tracking-tighter text-slate-800">
             HARSH SINHA
           </span>
@@ -41,28 +42,28 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
             PORTFOLIO '25
           </span>
         </div>
-      </div>
 
-      {/* Top Right Navigation */}
-      <div className="absolute top-8 right-8 pointer-events-auto flex gap-6 text-sm font-medium transition-all">
-        <button
-          onClick={() => setViewMode(ViewMode.ROAD)}
-          className={`${isActive(ViewMode.ROAD)} transition-all pb-1`}
-        >
-          ROAD
-        </button>
-        <button
-          onClick={() => setViewMode(ViewMode.OVERVIEW)}
-          className={`${isActive(ViewMode.OVERVIEW)} transition-all pb-1`}
-        >
-          OVERVIEW
-        </button>
-        <button
-          onClick={() => setViewMode(ViewMode.LIST)}
-          className={`${isActive(ViewMode.LIST)} transition-all pb-1`}
-        >
-          LIST
-        </button>
+        {/* Navigation */}
+        <div className="flex gap-6 text-sm font-medium">
+          <button
+            onClick={() => setViewMode(ViewMode.ROAD)}
+            className={`${isActive(ViewMode.ROAD)} transition-all pb-1`}
+          >
+            ROAD
+          </button>
+          <button
+            onClick={() => setViewMode(ViewMode.OVERVIEW)}
+            className={`${isActive(ViewMode.OVERVIEW)} transition-all pb-1`}
+          >
+            OVERVIEW
+          </button>
+          <button
+            onClick={() => setViewMode(ViewMode.LIST)}
+            className={`${isActive(ViewMode.LIST)} transition-all pb-1`}
+          >
+            LIST
+          </button>
+        </div>
       </div>
 
       {/* Bottom Right Socials */}
