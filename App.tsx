@@ -12,6 +12,7 @@ import CustomCursor from "./components/CustomCursor";
 import { useHapticFeedback } from "./hooks/useHapticFeedback";
 import { useAudio } from "./hooks/useAudio";
 import StartScreen from "./components/StartScreen";
+import { Analytics } from "@vercel/analytics/react";
 
 const App: React.FC = () => {
   const { playClick } = useAudio();
@@ -90,6 +91,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      <Analytics />
       <div className="grain-overlay" />
       <CustomCursor />
 
