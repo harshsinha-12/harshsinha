@@ -94,7 +94,9 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
           <Mail size={20} />
         </a>
         <a
-          href="#"
+          href="https://x.com/sinhaharsh12"
+          target="_blank"
+          rel="noreferrer"
           className="hover:text-slate-800 transition-colors hover:scale-110 transform duration-200"
         >
           <Twitter size={20} />
