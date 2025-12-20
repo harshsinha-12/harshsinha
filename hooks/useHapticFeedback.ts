@@ -1,12 +1,21 @@
 import { useCallback } from "react";
 
 export const useHapticFeedback = () => {
-  const triggerHaptic = useCallback((pattern: number | number[] = 10) => {
-    if (typeof navigator !== "undefined" && navigator.vibrate) {
+  const triggerHaptic = useCallback((pattern: number | number[] = 20) => {
+    // Check for navigator support
+    if (
+      typeof window !== "undefined" &&
+      window.navigator &&
+      window.navigator.vibrate
+    ) {
       try {
-        navigator.vibrate(pattern);
+        const success = window.navigator.vibrate(pattern);
+        if (!success) {
+          console.debug(
+            "Haptic feedback returned false (interaction required?)"
+          );
+        }
       } catch (e) {
-        // Fail silently if vibration is not supported or allowed
         console.debug("Haptic feedback failed:", e);
       }
     }
