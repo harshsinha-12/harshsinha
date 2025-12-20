@@ -9,11 +9,13 @@ import ListView from "./components/ListView";
 import DetailView from "./components/DetailView";
 import UIOverlay from "./components/UIOverlay";
 import CustomCursor from "./components/CustomCursor";
+import { useHapticFeedback } from "./hooks/useHapticFeedback";
 import { useAudio } from "./hooks/useAudio";
 import StartScreen from "./components/StartScreen";
 
 const App: React.FC = () => {
   const { playClick } = useAudio();
+  const { triggerHaptic } = useHapticFeedback();
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>(ViewMode.ROAD);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -33,11 +35,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleClick = () => {
       playClick();
+      triggerHaptic();
     };
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
-  }, [playClick]);
+  }, [playClick, triggerHaptic]);
 
   const handleStart = () => {
     setHasStarted(true);
@@ -109,7 +112,11 @@ const App: React.FC = () => {
 
       {/* Persistent Audio Element */}
       {/* <audio ref={audioRef} src="/background-music.mp3" loop /> */}
-      <audio ref={audioRef} src="/Interstellar Main Theme - Hans Zimmer (1).mp3" loop />
+      <audio
+        ref={audioRef}
+        src="/Interstellar Main Theme - Hans Zimmer (1).mp3"
+        loop
+      />
 
       {/* Content Views */}
       <AnimatePresence mode="wait">
