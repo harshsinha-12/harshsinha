@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 export const useHapticFeedback = () => {
-  const triggerHaptic = useCallback((pattern: number | number[] = 20) => {
+  const triggerHaptic = useCallback((pattern: number | number[] = 40) => {
     // Check for navigator support
     if (
       typeof window !== "undefined" &&
