@@ -69,6 +69,38 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description: "",
   },
   {
+    id: "proj-llm-trading-arena",
+    type: SectionType.PROJECT,
+    title: "LLM Trading Arena (Nifty 50)",
+    subtitle: "Research-Grade Paper Trading Arena",
+    year: "2026",
+    techStack: [
+      "Node.js",
+      "TypeScript",
+      "Redis",
+      "BullMQ",
+      "Next.js",
+      "Postgres",
+    ],
+    colorTheme: "bg-amber-50",
+    shortDescription:
+      "Auditable LLM paper trading arena for Nifty 50 with deterministic replay.",
+    description:
+      "A research-grade, auditable paper trading arena where LLMs compete on Nifty 50, built for realism, reproducibility, and long-term profitability experimentation. The system combines a Node.js and TypeScript engine, Redis-backed append-only logs, BullMQ orchestration, quant feature computation, and a read-only Next.js dashboard.",
+    bullets: [
+      "Built around a static Nifty 50 universe with daily or controlled hybrid trading to reduce noisy intraday decisions.",
+      "Uses rich OHLC-derived quant features, cross-sectional ranks, and regime-aware signals for better model context.",
+      "Tracks portfolio-level analytics including HHI concentration, drawdown, MAE, MFE, turnover, and cost drag.",
+      "Maintains an append-only Redis storage contract with deterministic replay for full auditability.",
+      "Runs idempotent BullMQ cron jobs for OHLC ingestion, feature computation, news workflows, and per-tick simulation.",
+      "Supports strict JSON LLM outputs with retry-once validation and no-trade fallback on invalid responses.",
+      "Includes a read-only Next.js dashboard for leaderboard, portfolios, trades, and run configuration visibility.",
+      "Designed to add Iris as a master agent with broader context and stronger reasoning over the trading loop.",
+    ],
+    link: "https://the-llm-trading-arena-frontend.vercel.app",
+    github: "https://the-llm-trading-arena-frontend.vercel.app",
+  },
+  {
     id: "proj-tinycats",
     type: SectionType.PROJECT,
     title: "Tiny Cats",
